@@ -36,6 +36,8 @@ public class Player {
 	public void draw() {
 		glColor3d(rgb[0], rgb[1], rgb[2]);
 		glRectd(centerX - size, centerY - size, centerX + size, centerY + size);
+		
+		
 
 	}
 
