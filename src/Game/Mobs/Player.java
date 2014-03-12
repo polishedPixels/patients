@@ -44,8 +44,6 @@ public class Player {
 	public void draw() {
 		glColor3d(rgb[0], rgb[1], rgb[2]);
 		glRectd(centerX - size, centerY - size, centerX + size, centerY + size);
-		
-		
 
 	}
 
@@ -62,7 +60,7 @@ public class Player {
 	}
 
 	private void surTileUpdate() {
-		
+
 		surTiles[0] = TileMap.tileMap[posX - 1][posY - 1];
 		surTiles[1] = TileMap.tileMap[posX - 0][posY - 1];
 		surTiles[2] = TileMap.tileMap[posX + 1][posY - 1];
@@ -87,10 +85,9 @@ public class Player {
 		Fog.tileMap[posX - 0][posY + 1].type = 0;
 		Fog.tileMap[posX + 1][posY + 1].type = 0;
 
-		
 	}
-	
-	private void colUpdate(){
+
+	private void colUpdate() {
 		for (int i = 0; i < 9; i++) {
 			if (surTiles[i].type == 1) {
 				surWall[i] = true;
@@ -102,14 +99,21 @@ public class Player {
 		if (surTiles[4].type == 2) {
 			reset();
 		}
-		if(surTiles[4].type == 4){
+		if (surTiles[4].type == 4) {
 			reset();
 			Level.curLevelIndex++;
 			Level.load(Level.curLevelIndex);
 		}
+		mobColCheck();
 	}
+	private void mobColCheck() {
+		for (Mob m : Mob.mobs.values()) {
+			if (m.posX == posX && m.posY == posY) {
+				reset();
+			}
 
-	
+		}
+	}
 
 	/*
 	 * 0,1,2 3,4,5 6,7,8
@@ -124,22 +128,22 @@ public class Player {
 	private void Input() {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
-				Step.Input = true;
+
 				if (Keyboard.isKeyDown(Keyboard.KEY_W) && !surWall[1]) {
 					posY--;
 					screenY--;
-					
+
 				} else if (Keyboard.isKeyDown(Keyboard.KEY_S) && !surWall[7]) {
 					posY++;
-					
+
 				} else if (Keyboard.isKeyDown(Keyboard.KEY_A) && !surWall[3]) {
 					posX--;
 					screenX--;
-					
+
 				} else if (Keyboard.isKeyDown(Keyboard.KEY_D) && !surWall[5]) {
 					posX++;
 					screenX++;
-					
+
 				}
 			}
 		}

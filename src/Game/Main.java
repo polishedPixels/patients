@@ -67,7 +67,7 @@ public class Main {
 	private static void update() {
 		Display.update();
 		Display.sync(Sync);
-		
+		Step.Update();
 		player.Update();
 
 	}
@@ -77,7 +77,7 @@ public class Main {
 		if (Step.next) {
 
 			//update step Here
-			
+			Mob.UpdateAll();
 			Step.next = false;
 		}
 
@@ -101,6 +101,7 @@ public class Main {
 		playerCam = new Camera(0, 0);
 		Camera.mainCam = playerCam;
 		player = new Player(3, 3, 8, 0, 1, 0);
+		Mob.createMob("Bobby", new Mob(3, 3, 10, 0, 0, 1));
 		Level.load(0);
 		 
 	}

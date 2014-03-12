@@ -22,7 +22,7 @@ public class Mob {
 	boolean[] surWall = new boolean[9];
 	public static Map<String, Mob> mobs = new HashMap<String, Mob>();
 
-	Mob(int X, int Y, double Size, double r, double g, double b) {
+	public Mob(int X, int Y, double Size, double r, double g, double b) {
 		posX = X;
 		posY = Y;
 		size = Size;
@@ -34,6 +34,11 @@ public class Mob {
 	public static void DrawAll() {
 		for (Mob m : mobs.values()) {
 			m.draw();
+		}
+	}
+	public static void UpdateAll() {
+		for (Mob m : mobs.values()) {
+			m.Update();
 		}
 	}
 	public static void createMob(String name, Mob m) {
@@ -49,12 +54,13 @@ public class Mob {
 
 	}
 
-	public void Update() {
+	private void Update() {
 		// Per Step
+
 		centerUpdate();
 		surTileUpdate();
 		colUpdate();
-		move();
+		move(Directions.SE);
 
 	}
 	private void centerUpdate() {
@@ -75,7 +81,6 @@ public class Mob {
 		surTiles[7] = TileMap.tileMap[posX - 0][posY + 1];
 		surTiles[8] = TileMap.tileMap[posX + 1][posY + 1];
 
-
 	}
 
 	private void colUpdate() {
@@ -87,10 +92,57 @@ public class Mob {
 			}
 		}
 	}
+	public void reset(){
+		
+	}
 
-	private void move() {
+	private void move(Directions d) {
+
+		switch (d) {
+			case N :
+				if (!surWall[1])
+					posY--;
+				break;
+			case E :
+				if (!surWall[5])
+					posX++;
+				break;
+			case S :
+				if (!surWall[7])
+					posY++;
+				break;
+			case W :
+				if (!surWall[3])
+					posX--;
+				break;
+			case NE :
+				if (!surWall[2]) {
+					posX++;
+					posY--;
+				}
+				break;
+			case NW :
+				if (!surWall[0]) {
+					posX--;
+					posY--;
+				}
+				break;
+			case SE :
+				if (!surWall[8]) {
+					posX++;
+					posY++;
+				}
+				break;
+			case SW :
+				if (!surWall[6]) {
+					posX--;
+					posY++;
+				}
+				break;
+			default :
+				break;
+		}
 
 	}
 
 }
-

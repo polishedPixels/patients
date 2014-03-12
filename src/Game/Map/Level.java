@@ -3,6 +3,7 @@ package Game.Map;
 import java.util.Random;
 
 import Game.Main;
+import Game.Mobs.Mob;
 
 public class Level {
 
@@ -121,6 +122,12 @@ public class Level {
 		Main.player.posY = startTile.posY;
 		
 
+	}
+	public static void Reset(){
+		Main.player.reset();
+		for(Mob m: Mob.mobs.values()){
+			m.reset();
+		}
 	}
 	private static int[][] setMines(int[][] CurMap) {
 
