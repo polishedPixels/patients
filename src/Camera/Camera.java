@@ -1,7 +1,8 @@
+package Camera;
 
 public class Camera {
-	int posX;
-	int posY;
+	public int posX;
+	public int posY;
 	
 	public static Camera mainCam;
 	

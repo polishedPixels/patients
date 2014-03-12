@@ -1,3 +1,5 @@
+package Game.Map;
+
 
 public class Tile {
 	
@@ -13,6 +15,8 @@ public class Tile {
 	 * 	0 = open
 	 * 	1 = wall
 	 *  2 = mine
+	 *  3 = start
+	 *  4 = finish
 	 * */
 	
 	public Tile(int X,int Y,int Type){

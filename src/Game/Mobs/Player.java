@@ -1,3 +1,4 @@
+package Game.Mobs;
 import static org.lwjgl.opengl.GL11.glColor3d;
 import static org.lwjgl.opengl.GL11.glRectd;
 
@@ -6,9 +7,16 @@ import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
 
+import Camera.Camera;
+import Game.Clock.Step;
+import Game.Map.Fog;
+import Game.Map.Level;
+import Game.Map.Tile;
+import Game.Map.TileMap;
+
 public class Player {
-	int posX;
-	int posY;
+	public int posX;
+	public int posY;
 	int screenX;
 	int screenY;
 	double size;
@@ -44,6 +52,7 @@ public class Player {
 	public void Update() {
 		Input();
 		surTileUpdate();
+		colUpdate();
 		centerUpdate();
 	}
 
@@ -78,6 +87,10 @@ public class Player {
 		Fog.tileMap[posX - 0][posY + 1].type = 0;
 		Fog.tileMap[posX + 1][posY + 1].type = 0;
 
+		
+	}
+	
+	private void colUpdate(){
 		for (int i = 0; i < 9; i++) {
 			if (surTiles[i].type == 1) {
 				surWall[i] = true;
@@ -89,35 +102,20 @@ public class Player {
 		if (surTiles[4].type == 2) {
 			reset();
 		}
-		if (checkFog()) {
+		if(surTiles[4].type == 4){
 			reset();
-			Level.load(1);
+			Level.curLevelIndex++;
+			Level.load(Level.curLevelIndex);
 		}
 	}
 
-	private boolean checkFog() {
-
-		boolean done = true;
-		for (int x = 0; x < TileMap.worldSize[0]; x++) {
-			for (int y = 0; y < TileMap.worldSize[1]; y++) {
-
-				if (Fog.tileMap[x][y].type == 1) {
-					done = false;
-				}
-
-			}
-
-		}
-		return done;
-	}
+	
 
 	/*
 	 * 0,1,2 3,4,5 6,7,8
 	 */
 
 	public void reset() {
-		posX = 1;
-		posY = 1;
 		Fog.clearMap();
 		Level.load(Level.curLevelIndex);
 
@@ -126,6 +124,7 @@ public class Player {
 	private void Input() {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
+				Step.Input = true;
 				if (Keyboard.isKeyDown(Keyboard.KEY_W) && !surWall[1]) {
 					posY--;
 					screenY--;

@@ -1,4 +1,7 @@
+package Game.Map;
+
 import static org.lwjgl.opengl.GL11.*;
+import Camera.Camera;
 
 public class TileMap {
 	public static int[] worldSize = { 20, 20 };

@@ -1,3 +1,4 @@
+package Game;
 
 
 import static org.lwjgl.opengl.GL11.*;
@@ -6,6 +7,15 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+
+import Camera.Camera;
+import Game.Clock.Step;
+import Game.Clock.Time;
+import Game.Map.Fog;
+import Game.Map.Level;
+import Game.Map.TileMap;
+import Game.Mobs.Mob;
+import Game.Mobs.Player;
 
 
 public class Main {
@@ -61,12 +71,26 @@ public class Main {
 		player.Update();
 
 	}
+	
+	private static void updatePerStep() {
+
+		if (Step.next) {
+
+			//update step Here
+			
+			Step.next = false;
+		}
+
+	}
 
 	private static void enterGameLoop() {
 		while (!Display.isCloseRequested()) {
+			Time.lastFrame = Time.getTime();
 			render();
 			input();
+			updatePerStep();
 			update();
+			Time.getDelta();
 		}
 	}
 
@@ -74,11 +98,10 @@ public class Main {
 		TileMap.Init(20,20);
 		Fog.Init(TileMap.worldSize[0], TileMap.worldSize[1]);
 		Level.levelSetUp(2);
-		Level.load(0);
 		playerCam = new Camera(0, 0);
 		Camera.mainCam = playerCam;
 		player = new Player(3, 3, 8, 0, 1, 0);
-		
+		Level.load(0);
 		 
 	}
 

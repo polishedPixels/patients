@@ -1,5 +1,8 @@
+package Game.Map;
+
 import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glRectd;
+import Camera.Camera;
 
 
 public class Fog {
