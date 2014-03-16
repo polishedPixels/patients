@@ -60,7 +60,7 @@ public class Mob {
 		centerUpdate();
 		surTileUpdate();
 		colUpdate();
-		move(Directions.SE);
+		move(Directions.S);
 
 	}
 	private void centerUpdate() {

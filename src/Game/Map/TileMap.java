@@ -28,27 +28,36 @@ public class TileMap {
 			}
 		}
 	}
+	public static Tile getTilefromDouble(double X, double Y) {
+
+		int px = (int) (X / Tile.size);
+		int py = (int) (Y / Tile.size);
+		
+
+		return tileMap[px][py];
+
+	}
 
 	public static void draw() {
 		for (int x = 0; x < worldSize[0]; x++) {
 			for (int y = 0; y < worldSize[1]; y++) {
 
 				switch (tileMap[x][y].type) {
-				case 0:
+				case 0://open
 					glColor3f(0, 0, 0);
 					glRectd(((x - Camera.mainCam.posX) * Tile.size),
 							((y - Camera.mainCam.posY) * Tile.size),
 							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
 							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
 					break;
-				case 1:
-					glColor3f(0.5f, 0.5f, 0.5f);
+				case 1://wall
+					glColor3d(0.541, 0.427, 0.231);
 					glRectd(((x - Camera.mainCam.posX) * Tile.size),
 							((y - Camera.mainCam.posY) * Tile.size),
 							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
 							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
 					break;
-				case 2:
+				case 2://mine
 					glColor3f(0, 0, 0);
 					glRectd(((x - Camera.mainCam.posX) * Tile.size),
 							((y - Camera.mainCam.posY) * Tile.size),
@@ -61,6 +70,30 @@ public class TileMap {
 							+ Tile.size / 2;
 
 					glRectd(centerX - 3, centerY - 3, centerX + 3, centerY + 3);
+
+					break;
+				case 4://Entance
+					glColor3d(0, 1, 0);
+					glRectd(((x - Camera.mainCam.posX) * Tile.size),
+							((y - Camera.mainCam.posY) * Tile.size),
+							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
+							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
+
+					break;
+				case 5://Exit
+					glColor3d(0, 1, 0.898);
+					glRectd(((x - Camera.mainCam.posX) * Tile.size),
+							((y - Camera.mainCam.posY) * Tile.size),
+							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
+							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
+
+					break;
+				case 6://Key
+					glColor3d(1, 0.984, 0);
+					glRectd(((x - Camera.mainCam.posX) * Tile.size),
+							((y - Camera.mainCam.posY) * Tile.size),
+							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
+							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
 
 					break;
 

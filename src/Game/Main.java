@@ -13,6 +13,7 @@ import Game.Clock.Step;
 import Game.Clock.Time;
 import Game.Map.Fog;
 import Game.Map.Level;
+import Game.Map.Point;
 import Game.Map.TileMap;
 import Game.Mobs.Mob;
 import Game.Mobs.Player;
@@ -28,6 +29,7 @@ public class Main {
 	
 	public static Player player;
 	public static Camera playerCam;
+	public static Point mousePoint;
 
 	
 	private static void render() {
@@ -42,11 +44,14 @@ public class Main {
 	private static void input() {
 		
 		double mouseX = Mouse.getX();
-		double mouseY = 1-Mouse.getY();
+		double mouseY = WINDOW_DIMENSIONS[1] - Mouse.getY();
 		
-		//testPoint.setPos(mouseX, mouseY);
+		mousePoint.setPos(mouseX, mouseY);
 		
-		//System.out.println(testPoint.curTile.posX);
+		//System.out.println(mousePoint.posY);
+		
+		
+		
 	}
 
 	private static void cleanUp(boolean asCrash) {
@@ -97,13 +102,20 @@ public class Main {
 	private static void setUpObjects() {
 		TileMap.Init(20,20);
 		Fog.Init(TileMap.worldSize[0], TileMap.worldSize[1]);
+		
 		Level.levelSetUp(2);
+		
 		playerCam = new Camera(0, 0);
 		Camera.mainCam = playerCam;
+		
 		player = new Player(3, 3, 8, 0, 1, 0);
-		Mob.createMob("Bobby", new Mob(3, 3, 10, 0, 0, 1));
+		Mob.createMob("Bobby", new Mob(6, 6, 10, 0, 0, 1));
+		
+		mousePoint = new Point(0, 0);
+		
 		Level.load(0);
-		 
+		Fog.clearMap();
+		
 	}
 
 	private static void setUpDisplay() {

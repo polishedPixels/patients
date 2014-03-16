@@ -22,6 +22,7 @@ public class Player {
 	double size;
 	double centerX;
 	double centerY;
+	boolean hasKey;
 	double[] rgb = new double[3];
 	Tile[] surTiles = new Tile[9];
 	boolean[] surWall = new boolean[9];
@@ -35,6 +36,7 @@ public class Player {
 		rgb[0] = r;
 		rgb[1] = g;
 		rgb[2] = b;
+		hasKey = false;
 
 		centerUpdate();
 		surTileUpdate();
@@ -89,10 +91,18 @@ public class Player {
 
 	private void colUpdate() {
 		for (int i = 0; i < 9; i++) {
-			if (surTiles[i].type == 1) {
+			if (surTiles[i].type == 1 || surTiles[i].type == 4
+					|| surTiles[i].type == 5) {
 				surWall[i] = true;
 			} else {
 				surWall[i] = false;
+			}
+		}
+		for (int i = 0; i < 9; i++) {
+			if (surTiles[i].type == 5) {
+				if (hasKey && Keyboard.isKeyDown(Keyboard.KEY_A)) {
+					nextLevel();
+				}
 			}
 		}
 
@@ -103,6 +113,10 @@ public class Player {
 			reset();
 			Level.curLevelIndex++;
 			Level.load(Level.curLevelIndex);
+		}
+		if (surTiles[4].type == 6) {
+			TileMap.tileMap[surTiles[4].posX][surTiles[4].posY].type = 0;
+			hasKey = true;
 		}
 		mobColCheck();
 	}
@@ -120,7 +134,15 @@ public class Player {
 	 */
 
 	public void reset() {
+		hasKey = false;
 		Fog.clearMap();
+		Level.load(Level.curLevelIndex);
+
+	}
+	public void nextLevel() {
+		hasKey = false;
+		Fog.clearMap();
+		Level.curLevelIndex++;
 		Level.load(Level.curLevelIndex);
 
 	}
@@ -129,20 +151,27 @@ public class Player {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				if (Keyboard.isKeyDown(Keyboard.KEY_W) && !surWall[1]) {
-					posY--;
-					screenY--;
+				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ) {
+					if (!surWall[1]) {
+						posY--;
+						screenY--;
+					}
 
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_S) && !surWall[7]) {
-					posY++;
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN) ) {
+					if (!surWall[7]) {
+						posY++;
+					}
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_A)|| Keyboard.isKeyDown(Keyboard.KEY_LEFT) ) {
+					if (!surWall[3]) {
+						posX--;
+						screenX--;
+					}
 
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_A) && !surWall[3]) {
-					posX--;
-					screenX--;
-
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_D) && !surWall[5]) {
-					posX++;
-					screenX++;
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_RIGHT) ) {
+					if (!surWall[5]) {
+						posX++;
+						screenX++;
+					}
 
 				}
 			}
