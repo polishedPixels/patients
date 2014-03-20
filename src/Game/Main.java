@@ -109,7 +109,7 @@ public class Main {
 		Camera.mainCam = playerCam;
 		
 		player = new Player(3, 3, 8, 0, 1, 0);
-		Mob.createMob("Bobby", new Mob(6, 6, 10, 0, 0, 1));
+		//Mob.createMob("Bobby", new Mob(6, 6, 10, 0, 0, 1));
 		
 		mousePoint = new Point(0, 0);
 		

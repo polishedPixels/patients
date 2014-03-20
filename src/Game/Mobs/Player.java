@@ -15,10 +15,10 @@ import Game.Map.Tile;
 import Game.Map.TileMap;
 
 public class Player {
+
 	public int posX;
 	public int posY;
-	int screenX;
-	int screenY;
+
 	double size;
 	double centerX;
 	double centerY;
@@ -30,8 +30,6 @@ public class Player {
 	public Player(int X, int Y, double Size, double r, double g, double b) {
 		posX = X;
 		posY = Y;
-		screenX = X;
-		screenY = Y;
 		size = Size;
 		rgb[0] = r;
 		rgb[1] = g;
@@ -53,6 +51,7 @@ public class Player {
 		Input();
 		surTileUpdate();
 		colUpdate();
+		clearSurFog();
 		centerUpdate();
 	}
 
@@ -62,7 +61,7 @@ public class Player {
 	}
 
 	private void surTileUpdate() {
-
+		
 		surTiles[0] = TileMap.tileMap[posX - 1][posY - 1];
 		surTiles[1] = TileMap.tileMap[posX - 0][posY - 1];
 		surTiles[2] = TileMap.tileMap[posX + 1][posY - 1];
@@ -74,7 +73,12 @@ public class Player {
 		surTiles[6] = TileMap.tileMap[posX - 1][posY + 1];
 		surTiles[7] = TileMap.tileMap[posX - 0][posY + 1];
 		surTiles[8] = TileMap.tileMap[posX + 1][posY + 1];
+		
+		
+		
 
+	}
+	private void clearSurFog(){
 		Fog.tileMap[posX - 1][posY - 1].type = 0;
 		Fog.tileMap[posX - 0][posY - 1].type = 0;
 		Fog.tileMap[posX + 1][posY - 1].type = 0;
@@ -86,13 +90,11 @@ public class Player {
 		Fog.tileMap[posX - 1][posY + 1].type = 0;
 		Fog.tileMap[posX - 0][posY + 1].type = 0;
 		Fog.tileMap[posX + 1][posY + 1].type = 0;
-
 	}
 
 	private void colUpdate() {
 		for (int i = 0; i < 9; i++) {
-			if (surTiles[i].type == 1 || surTiles[i].type == 4
-					|| surTiles[i].type == 5) {
+			if (surTiles[i].type == 1 || surTiles[i].type == 4 || surTiles[i].type == 5) {
 				surWall[i] = true;
 			} else {
 				surWall[i] = false;
@@ -100,8 +102,11 @@ public class Player {
 		}
 		for (int i = 0; i < 9; i++) {
 			if (surTiles[i].type == 5) {
-				if (hasKey && Keyboard.isKeyDown(Keyboard.KEY_A)) {
-					nextLevel();
+				if (hasKey) {
+					if (Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+						nextLevel();
+					}
+
 				}
 			}
 		}
@@ -151,26 +156,26 @@ public class Player {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ) {
+				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP)) {
 					if (!surWall[1]) {
 						posY--;
-						screenY--;
+
 					}
 
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN) ) {
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
 					if (!surWall[7]) {
 						posY++;
 					}
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_A)|| Keyboard.isKeyDown(Keyboard.KEY_LEFT) ) {
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 					if (!surWall[3]) {
 						posX--;
-						screenX--;
+
 					}
 
-				} else if (Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_RIGHT) ) {
+				} else if (Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
 					if (!surWall[5]) {
 						posX++;
-						screenX++;
+
 					}
 
 				}

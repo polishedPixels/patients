@@ -97,7 +97,12 @@ public class TileMap {
 
 					break;
 
-				default:
+				default://open
+					glColor3f(0, 0, 0);
+					glRectd(((x - Camera.mainCam.posX) * Tile.size),
+							((y - Camera.mainCam.posY) * Tile.size),
+							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
+							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
 					break;
 				}
 
