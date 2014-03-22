@@ -61,7 +61,7 @@ public class Player {
 	}
 
 	private void surTileUpdate() {
-		
+
 		surTiles[0] = TileMap.tileMap[posX - 1][posY - 1];
 		surTiles[1] = TileMap.tileMap[posX - 0][posY - 1];
 		surTiles[2] = TileMap.tileMap[posX + 1][posY - 1];
@@ -73,12 +73,9 @@ public class Player {
 		surTiles[6] = TileMap.tileMap[posX - 1][posY + 1];
 		surTiles[7] = TileMap.tileMap[posX - 0][posY + 1];
 		surTiles[8] = TileMap.tileMap[posX + 1][posY + 1];
-		
-		
-		
 
 	}
-	private void clearSurFog(){
+	private void clearSurFog() {
 		Fog.tileMap[posX - 1][posY - 1].type = 0;
 		Fog.tileMap[posX - 0][posY - 1].type = 0;
 		Fog.tileMap[posX + 1][posY - 1].type = 0;
@@ -94,21 +91,15 @@ public class Player {
 
 	private void colUpdate() {
 		for (int i = 0; i < 9; i++) {
-			if (surTiles[i].type == 1 || surTiles[i].type == 4 || surTiles[i].type == 5) {
+			if (surTiles[i].type == 1 || surTiles[i].type == 4) {
 				surWall[i] = true;
 			} else {
 				surWall[i] = false;
 			}
 		}
-		for (int i = 0; i < 9; i++) {
-			if (surTiles[i].type == 5) {
-				if (hasKey) {
-					if (Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-						nextLevel();
-					}
 
-				}
-			}
+		if (surTiles[4].type == 5 && hasKey) {
+			nextLevel();
 		}
 
 		if (surTiles[4].type == 2) {

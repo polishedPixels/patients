@@ -103,7 +103,7 @@ public class Main {
 		TileMap.Init(20,20);
 		Fog.Init(TileMap.worldSize[0], TileMap.worldSize[1]);
 		
-		Level.levelSetUp(2);
+		Level.levelSetUp(4);
 		
 		playerCam = new Camera(0, 0);
 		Camera.mainCam = playerCam;

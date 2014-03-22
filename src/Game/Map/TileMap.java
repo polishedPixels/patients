@@ -89,12 +89,27 @@ public class TileMap {
 
 					break;
 				case 6://Key
-					glColor3d(1, 0.984, 0);
+					
+					glColor3f(0, 0, 0);
 					glRectd(((x - Camera.mainCam.posX) * Tile.size),
 							((y - Camera.mainCam.posY) * Tile.size),
 							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
 							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
+					glColor3d(1, 0.984, 0);
+					double centerX1 = ((tileMap[x][y].posX - Camera.mainCam.posX) * Tile.size)
+							+ Tile.size / 2;
+					double centerY1 = ((tileMap[x][y].posY - Camera.mainCam.posY) * Tile.size)
+							+ Tile.size / 2;
 
+					glRectd(centerX1 - 5, centerY1 - 5, centerX1 + 5, centerY1 + 5);
+					break;
+					
+				case 9://no Mine Zones
+					glColor3f(0, 0, 0);
+					glRectd(((x - Camera.mainCam.posX) * Tile.size),
+							((y - Camera.mainCam.posY) * Tile.size),
+							((x - Camera.mainCam.posX) * Tile.size) + Tile.size,
+							((y - Camera.mainCam.posY) * Tile.size) + Tile.size);
 					break;
 
 				default://open
